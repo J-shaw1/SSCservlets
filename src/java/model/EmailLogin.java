@@ -1,17 +1,12 @@
 package model;
 
-import java.util.Map;
 import java.util.Properties;
-import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
 /**
  * Contains several methods for interacting with an email account
@@ -66,17 +61,14 @@ public class EmailLogin {
      * Sends an email with the login details that are already in the class
      *
      * @param to The main recipient
-     * @param cc The email to CC, this gets decoded by this class, email'session
-     * need to be separated by spaces
+     * @param cc The email to CC, this gets decoded by this class, email's need
+     * to be separated by spaces
      * @param subject The subject of the email
      * @param body The body of the email
+     * @throws MessagingException If the email fails to send then this error is
+     * thrown
      */
     public void sendEmail(String to, String cc, String subject, String body) throws MessagingException {
-	//Split the tos into an array
-	String[] tos = null;
-	if (cc != null) {
-	    tos = cc.split(" ");
-	}
 
 	String smtphost = "smtp.gmail.com";
 	Properties prop = System.getProperties();
@@ -89,11 +81,15 @@ public class EmailLogin {
 
 	//Set who the message is from and going to
 	message.setFrom(new InternetAddress(username));
-	
+
 	message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
-	for (String add : tos) {
-	    message.addRecipient(Message.RecipientType.TO, new InternetAddress(add));
+	String[] tos;
+	if (cc != null && !cc.equals("")) {
+	    tos = cc.split(" ");
+	    for (String add : tos) {
+		message.addRecipient(Message.RecipientType.TO, new InternetAddress(add));
+	    }
 	}
 
 	message.setSubject(subject);

@@ -44,6 +44,7 @@ public class NewEmail extends HttpServlet {
 	try {
 	    login.sendEmail(to, cc, subject, body);
 	} catch (MessagingException ex) {
+	    ex.printStackTrace();
 	    throw new RuntimeException("Email failed");
 	}
     }
