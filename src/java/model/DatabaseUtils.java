@@ -27,7 +27,7 @@ public class DatabaseUtils {
     public static Connection getConnection() {
 	Connection conn = null;
 
-	final String SERVER_ADDRESS = "jdbc:postgresql://dbteach2/jgs328";
+	final String SERVER_ADDRESS = "jdbc:postgresql://localhost:1527";
 	final String SERVER_USERNAME = "jgs328";
 	final String SERVER_PASSWORD = "qwerty1234";
 	
