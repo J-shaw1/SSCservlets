@@ -3,11 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Joe/NetbeansProjects/ServletExamples/SSCservlets/web/index.html</file>
-            <file>file:/C:/Users/Joe/NetbeansProjects/ServletExamples/SSCservlets/web/incorrectLogin.html</file>
-            <file>file:/C:/Users/Joe/NetbeansProjects/ServletExamples/SSCservlets/web/correctLogin.jsp</file>
-            <file>file:/C:/Users/Joe/NetbeansProjects/ServletExamples/SSCservlets/src/java/servlets/TestLogin.java</file>
-            <file>file:/C:/Users/Joe/NetbeansProjects/ServletExamples/SSCservlets/src/java/email/emailLogin.java</file>
+            <file>file:/C:/Users/Joe/Documents/GitHub/SSCservlets/src/java/model/DatabaseUtils.java</file>
         </group>
     </open-files>
 </project-private>
