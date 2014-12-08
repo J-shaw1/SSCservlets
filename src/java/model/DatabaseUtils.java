@@ -40,6 +40,7 @@ public class DatabaseUtils {
 	try {
 	    conn = DriverManager.getConnection(SERVER_ADDRESS, SERVER_USERNAME, SERVER_PASSWORD);
 	} catch (SQLException ex) {
+	    ex.printStackTrace();
 	    throw new RuntimeException("Failed to connect to the database");
 	}
 
