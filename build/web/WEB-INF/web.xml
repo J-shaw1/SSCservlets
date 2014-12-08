@@ -4,9 +4,33 @@
         <servlet-name>TestLogin</servlet-name>
         <servlet-class>servlets.TestLogin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewEmail</servlet-name>
+        <servlet-class>servlets.NewEmail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewContact</servlet-name>
+        <servlet-class>servlets.NewContact</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchContact</servlet-name>
+        <servlet-class>servlets.SearchContact</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestLogin</servlet-name>
         <url-pattern>/TestLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewEmail</servlet-name>
+        <url-pattern>/NewEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewContact</servlet-name>
+        <url-pattern>/NewContact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchContact</servlet-name>
+        <url-pattern>/SearchContact</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

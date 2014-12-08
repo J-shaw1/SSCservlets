@@ -1,4 +1,4 @@
-package email;
+package model;
 
 import java.util.Properties;
 import javax.mail.MessagingException;
@@ -11,7 +11,6 @@ import javax.mail.Session;
  */
 public class EmailLogin {
 
-    //Test commit
     String username;
     String password;
     Session s;

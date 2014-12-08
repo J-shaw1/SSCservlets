@@ -27,7 +27,7 @@
 	<a href="#" onclick="showHide('sendEmail')">Send email</a>
 	<div id="sendEmail" style="display: none">
 	    <!--Send email code-->
-	    <form name="sendEmail" action="">
+	    <form name="sendEmail" action="NewEmail">
 		<fieldset>
 		    <legend>Compose email</legend>
 		    <table>
@@ -56,7 +56,7 @@
 	<a href="#" onclick="showHide('search')">Search address book</a>
 	<div id="search" style="display: none">
 	    <!--Search address book code-->
-	    <form name="search" action="">
+	    <form name="search" action="SearchContact">
 		<fieldset>
 		    <legend>Search address book</legend>
 		    <table>
@@ -69,7 +69,7 @@
 			    <td><input type="text" name="searchSurname"></td>
 			</tr>
 		    </table>
-		    <input type="button" value="Search">
+		    <input type="submit" value="Search">
 		</fieldset>
 	    </form>
 	</div>
@@ -79,7 +79,7 @@
 	<a href="#" onclick="showHide('addNew')">Add new contact</a>
 	<div id="addNew" style="display: none">
 	    <!--Add to address book code-->
-	    <form name="newContact" action="">
+	    <form name="newContact" action="NewEmail">
 		<fieldset>
 		    <legend>Create new contact:</legend>
 		    <table>
@@ -96,7 +96,7 @@
 			    <td><input type="text" name="addSurname"></td>
 			</tr>
 		    </table>
-		    <input type="button" value="Add contact">
+		    <input type="submit" value="Add contact">
 		</fieldset>
 	    </form>
 	</div>

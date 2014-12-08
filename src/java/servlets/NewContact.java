@@ -1,17 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package servlets;
 
-import model.EmailLogin;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  *
- * @author Joe
+ * @author joe
  */
-public class TestLogin extends HttpServlet {
+public class NewContact extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -22,30 +27,13 @@ public class TestLogin extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        //Test if the deatils are correct
-            //IF they are then send to menu page
-            //else send to try again page
-        
-        RequestDispatcher rd;
-        
-        //Get the usename and password from the request
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        
-        //Create the new login object
-        EmailLogin login = new EmailLogin(username, password);
-        
-        //Add the login to the request
-        request.setAttribute("login", login);
-        
-        //Test if the login details are correct
-        if(login.testLoginDetails()){
-            rd = request.getRequestDispatcher("correctLogin.jsp");
-        } else {
-            rd = request.getRequestDispatcher("incorrectLogin.html");
-        }
-        rd.forward(request, response);
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
+	response.setContentType("text/html;charset=UTF-8");
+	try (PrintWriter out = response.getWriter()) {
+	    /* TODO output your page here. You may use following sample code. */
+	    out.println("new contact");
+	}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,8 +47,8 @@ public class TestLogin extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+	    throws ServletException, IOException {
+	processRequest(request, response);
     }
 
     /**
@@ -73,8 +61,8 @@ public class TestLogin extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+	    throws ServletException, IOException {
+	processRequest(request, response);
     }
 
     /**
@@ -84,6 +72,7 @@ public class TestLogin extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+	return "Short description";
     }// </editor-fold>
+
 }
