@@ -79,9 +79,9 @@
 	<a href="#" onclick="showHide('addNew')">Add new contact</a>
 	<div id="addNew" style="display: none">
 	    <!--Add to address book code-->
-	    <form name="newContact" action="NewEmail">
+	    <form name="newContact" action="NewContact">
 		<fieldset>
-		    <legend>Create new contact:</legend>
+		    <legend>Create new contact</legend>
 		    <table>
 			<tr>
 			    <td>Email address</td>

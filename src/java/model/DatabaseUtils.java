@@ -118,4 +118,14 @@ public class DatabaseUtils {
 
 	return contacts;
     }
+    
+    public static void addContact(HttpSession session, String forename, String surname, String email) throws SQLException{
+	PreparedStatement p = getConnection().prepareStatement(
+		"INSERT INTO Contacts VALUES (?,?,?,?)");
+	p.setString(1, (String) session.getAttribute("username"));
+	p.setString(2, email);
+	p.setString(3, forename);
+	p.setString(4, surname);
+    }
+    
 }
