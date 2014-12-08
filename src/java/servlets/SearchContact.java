@@ -7,10 +7,13 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.ContactDetail;
+import model.DatabaseUtils;
 
 /**
  *
@@ -32,7 +35,28 @@ public class SearchContact extends HttpServlet {
 	response.setContentType("text/html;charset=UTF-8");
 	try (PrintWriter out = response.getWriter()) {
 	    /* TODO output your page here. You may use following sample code. */
-	    out.println("search contact");
+	    out.println("<h1>Search Results</h1>");
+
+	    ArrayList<ContactDetail> results = DatabaseUtils.searchContact(request.getParameter("searchForename"),
+		    request.getParameter("searchForename"),
+		    request.getSession());
+	    
+	    out.println("<table border=\"1px\">");
+	    out.println("<tr>");
+	    out.println("<td>Forename</td>");
+	    out.println("<td>Surname</td>");
+	    out.println("<td>Email address</td>");
+	    out.println("</tr>");
+
+	    for (ContactDetail result : results) {
+		out.println("<tr>");
+		out.println("<td>" + result.getForename() + "</td>");
+		out.println("<td>" + result.getSurname() + "</td>");
+		out.println("<td>" + result.getEmail() + "</td>");
+		out.println("</tr>");
+	    }
+	    out.println("</table>");
+
 	}
     }
 

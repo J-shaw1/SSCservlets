@@ -20,9 +20,17 @@ import javax.servlet.http.HttpSession;
  */
 public class DatabaseUtils {
 
+    /**
+     * Gets a new connection to the database
+     * @return The connection to the database
+     */
     public static Connection getConnection() {
 	Connection conn = null;
 
+	final String SERVER_ADDRESS = "jdbc:postgresql://dbteach2/jgs328";
+	final String SERVER_USERNAME = "jgs328";
+	final String SERVER_PASSWORD = "qwerty1234";
+	
 	try {
 	    Class.forName("org.postgresql.Driver");
 	} catch (ClassNotFoundException ex) {
@@ -30,7 +38,7 @@ public class DatabaseUtils {
 	}
 
 	try {
-	    conn = DriverManager.getConnection("jdbc:postgresql://dbteach2/jgs328", "jgs328", "qwerty1234");
+	    conn = DriverManager.getConnection(SERVER_ADDRESS, SERVER_USERNAME, SERVER_PASSWORD);
 	} catch (SQLException ex) {
 	    throw new RuntimeException("Failed to connect to the database");
 	}
