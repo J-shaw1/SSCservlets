@@ -6,6 +6,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
@@ -44,7 +46,6 @@ public class NewEmail extends HttpServlet {
 	} catch (MessagingException ex) {
 	    throw new RuntimeException("Email failed");
 	}
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
