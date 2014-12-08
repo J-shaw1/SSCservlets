@@ -11,6 +11,7 @@ import javax.mail.Session;
  */
 public class EmailLogin {
 
+    //Test commit
     String username;
     String password;
     Session s;
