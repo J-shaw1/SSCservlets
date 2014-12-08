@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 /**
  *
  * @author Joe
@@ -29,6 +30,9 @@ public class TestLogin extends HttpServlet {
         
         RequestDispatcher rd;
         
+	//Create the session for storing data
+	HttpSession session = request.getSession(true);
+	
         //Get the usename and password from the request
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -37,7 +41,9 @@ public class TestLogin extends HttpServlet {
         EmailLogin login = new EmailLogin(username, password);
         
         //Add the login to the request
-        request.setAttribute("login", login);
+        session.setAttribute("login", login);
+	session.setAttribute("username", username);
+	session.setAttribute("password", password);
         
         //Test if the login details are correct
         if(login.testLoginDetails()){

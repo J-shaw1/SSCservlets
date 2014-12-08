@@ -6,11 +6,15 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.EmailLogin;
 
 /**
  *
@@ -24,16 +28,23 @@ public class NewEmail extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	response.setContentType("text/html;charset=UTF-8");
-	try (PrintWriter out = response.getWriter()) {
-	    /* TODO output your page here. You may use following sample code. */
-	    out.println("new email");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
+	HttpSession session = request.getSession();
+
+	EmailLogin login = (EmailLogin) session.getAttribute("login");
+
+	String to = request.getParameter("to");
+	String cc = request.getParameter("cc");
+	String subject = request.getParameter("subject");
+	String body = request.getParameter("body");
+
+	try {
+	    login.sendEmail(to, cc, subject, body);
+	} catch (MessagingException ex) {
+	    throw new RuntimeException("Email failed");
 	}
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
