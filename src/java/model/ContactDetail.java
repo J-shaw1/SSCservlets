@@ -19,9 +19,9 @@ public class ContactDetail {
      * @param s THe contacts second name
      */
     public ContactDetail(String f, String s, String email) {
-	this.email = email;
-	this.f = f;
-	this.s = s;
+        this.email = email;
+        this.f = f;
+        this.s = s;
     }
 
     /**
@@ -30,11 +30,11 @@ public class ContactDetail {
      * @return The email
      */
     public String getEmail() {
-	if (email != null) {
-	    return email;
-	} else {
-	    return "";
-	}
+        if (email != null) {
+            return email;
+        } else {
+            return "";
+        }
     }
 
     /**
@@ -43,11 +43,11 @@ public class ContactDetail {
      * @return The forename
      */
     public String getForename() {
-	if (f != null) {
-	    return f;
-	} else {
-	    return "";
-	}
+        if (f != null) {
+            return f;
+        } else {
+            return "";
+        }
     }
 
     /**
@@ -56,10 +56,10 @@ public class ContactDetail {
      * @return The surname
      */
     public String getSurname() {
-	if (s != null) {
-	    return s;
-	} else {
-	    return "";
-	}
+        if (s != null) {
+            return s;
+        } else {
+            return "";
+        }
     }
 }

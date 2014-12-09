@@ -26,8 +26,8 @@ public class EmailLogin {
      * @param password The password to use in the object
      */
     public EmailLogin(String username, String password) {
-	this.username = username;
-	this.password = password;
+        this.username = username;
+        this.password = password;
     }
 
     /**
@@ -38,23 +38,23 @@ public class EmailLogin {
      */
     public boolean testLoginDetails() {
 
-	//Set all properties needed
-	Properties prop = System.getProperties();
-	prop.setProperty("mail.store.protocol", "imaps");
-	prop.setProperty("mail.user", username);
-	prop.setProperty("mail.password", password);
+        //Set all properties needed
+        Properties prop = System.getProperties();
+        prop.setProperty("mail.store.protocol", "imaps");
+        prop.setProperty("mail.user", username);
+        prop.setProperty("mail.password", password);
 
-	//Create a session
-	session = Session.getDefaultInstance(prop);
+        //Create a session
+        session = Session.getDefaultInstance(prop);
 
-	try {
-	    //If we can get the store, then the login details must be valid
-	    session.getStore("imaps").connect("imap.googlemail.com", username, password);
-	    return true;
-	} catch (MessagingException e) {
-	    //Something went wrong, so the details must be invalid, or the connection failed
-	    return false;
-	}
+        try {
+            //If we can get the store, then the login details must be valid
+            session.getStore("imaps").connect("imap.googlemail.com", username, password);
+            return true;
+        } catch (MessagingException e) {
+            //Something went wrong, so the details must be invalid, or the connection failed
+            return false;
+        }
     }
 
     /**
@@ -70,35 +70,37 @@ public class EmailLogin {
      */
     public void sendEmail(String to, String cc, String subject, String body) throws MessagingException {
 
-	String smtphost = "smtp.gmail.com";
-	Properties prop = System.getProperties();
-	prop.put("mail.smtp.auth", "true");
-	prop.put("mail.smtp.starttls.enable", "true");
-	prop.put("mail.smtp.host", smtphost);
-	prop.put("mail.smtp.port", "587");
+        String smtphost = "smtp.gmail.com";
+        Properties prop = System.getProperties();
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.starttls.enable", "true");
+        prop.put("mail.smtp.host", smtphost);
+        prop.put("mail.smtp.port", "587");
 
-	Message message = new MimeMessage(session);
+        Message message = new MimeMessage(session);
 
-	//Set who the message is from and going to
-	message.setFrom(new InternetAddress(username));
+        //Set who the message is from and going to
+        message.setFrom(new InternetAddress(username));
 
-	message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
-	String[] tos;
-	if (cc != null && !cc.equals("")) {
-	    tos = cc.split(" ");
-	    for (String add : tos) {
-		message.addRecipient(Message.RecipientType.TO, new InternetAddress(add));
-	    }
-	}
+        //Add all the CC contacts
+        String[] tos;
+        if (cc != null && !cc.equals("")) {
+            tos = cc.split(" ");
+            for (String add : tos) {
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(add));
+            }
+        }
 
-	message.setSubject(subject);
-	message.setText(body);
+        //Add the subject and text
+        message.setSubject(subject);
+        message.setText(body);
 
-	//Send the email
-	Transport trans = session.getTransport("smtp");
-	trans.connect(smtphost, username, password);
-	trans.sendMessage(message, message.getAllRecipients());
+        //Send the email
+        Transport trans = session.getTransport("smtp");
+        trans.connect(smtphost, username, password);
+        trans.sendMessage(message, message.getAllRecipients());
 
     }
 }

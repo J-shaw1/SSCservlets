@@ -2,8 +2,6 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,7 +19,7 @@ public class NewEmail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * methods. Will create a new email using the information in the form.
      *
      * @param request servlet request
      * @param response servlet response
@@ -29,6 +27,8 @@ public class NewEmail extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         RequestDispatcher rd;
+
+        //If the request is new then send them to the login page
         if (session.isNew()) {
             rd = request.getRequestDispatcher("index.html");
             try {
@@ -39,25 +39,30 @@ public class NewEmail extends HttpServlet {
             }
         }
 
+        //Get the Email login object 
         EmailLogin login = (EmailLogin) session.getAttribute("login");
 
+        //Get all the information from the form
         String to = request.getParameter("to");
         String cc = request.getParameter("cc");
         String subject = request.getParameter("subject");
         String body = request.getParameter("body");
 
+        //Get the print writer for letting people know that it send/failed
         PrintWriter out = null;
         try {
             out = response.getWriter();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        
+
         try {
             login.sendEmail(to, cc, subject, body);
+            //Let the user know that it send
             out.write("Email sent");
 
         } catch (MessagingException ex) {
+            //Let the user know that it failed
             out.write("Email failed to send");
             ex.printStackTrace();
         }

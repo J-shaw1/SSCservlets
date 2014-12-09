@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Tests if a users login information is correct
  *
  * @author Joe
  */
@@ -17,7 +18,7 @@ public class TestLogin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * methods. Will test if the login information is correct
      *
      * @param request servlet request
      * @param response servlet response
@@ -25,9 +26,6 @@ public class TestLogin extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //Test if the deatils are correct
-        //IF they are then send to menu page
-        //else send to try again page
 
         RequestDispatcher rd;
 

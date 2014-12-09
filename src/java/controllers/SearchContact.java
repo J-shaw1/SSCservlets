@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
 import java.io.IOException;
@@ -25,7 +20,7 @@ public class SearchContact extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * methods. Will search the database for a contact
      *
      * @param request servlet request
      * @param response servlet response
@@ -35,6 +30,7 @@ public class SearchContact extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //Check that the session is  not new
         HttpSession session = request.getSession();
         RequestDispatcher rd;
         if (session.isNew()) {
@@ -49,12 +45,13 @@ public class SearchContact extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<h1>Search Results</h1>");
 
+            //Get the reqults from the server
             ArrayList<ContactDetail> results = DatabaseUtils.searchContact(request.getParameter("searchForename"),
-                    request.getParameter("searchSurname"),session);
+                    request.getParameter("searchSurname"), session);
 
+            //Give out start of table
             out.println("<table border=\"1px\">");
             out.println("<tr>");
             out.println("<td>Forename</td>");
@@ -62,6 +59,7 @@ public class SearchContact extends HttpServlet {
             out.println("<td>Email address</td>");
             out.println("</tr>");
 
+            //Give create a new row for each contact that it found
             for (ContactDetail result : results) {
                 out.println("<tr>");
                 out.println("<td>" + result.getForename() + "</td>");

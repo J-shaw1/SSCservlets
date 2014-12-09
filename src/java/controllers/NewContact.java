@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import model.DatabaseUtils;
 
 /**
+ * Servlet for adding a new contact to the database
  *
  * @author joe
  */
@@ -26,7 +20,8 @@ public class NewContact extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * methods. Will add a contact to the database, using information from the
+     * form
      *
      * @param request servlet request
      * @param response servlet response
@@ -35,6 +30,7 @@ public class NewContact extends HttpServlet {
 
         HttpSession session = request.getSession();
 
+        //If the session is new then send them back to the homepage
         RequestDispatcher rd;
         if (session.isNew()) {
             rd = request.getRequestDispatcher("index.html");
@@ -46,17 +42,27 @@ public class NewContact extends HttpServlet {
             }
         }
 
+        //Get the print writer so the text can be added to the page
+        PrintWriter out = null;
         try {
+            out = response.getWriter();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            //Try to add the cotact to the database
             DatabaseUtils.addContact(request.getSession(),
                     request.getParameter("addForename"),
                     request.getParameter("addSurname"),
                     request.getParameter("addEmail"));
 
-            PrintWriter out = response.getWriter();
+            //Tell the user that it added the contact
             out.write("Contact added");
 
-        } catch (SQLException | IOException ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
+            //Tell user that it failed to add the contact
+            out.write("Failed to add contact");
         }
     }
 

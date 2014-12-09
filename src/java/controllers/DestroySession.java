@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Servlet to destroy a session, is called when the user want to logout
  *
  * @author Joe
  */
@@ -22,7 +17,8 @@ public class DestroySession extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * methods. This will destroy the session and return the user back to the
+     * login page
      *
      * @param request servlet request
      * @param response servlet response
@@ -34,7 +30,9 @@ public class DestroySession extends HttpServlet {
         RequestDispatcher rd;
         rd = request.getRequestDispatcher("index.html");
         try {
+            //Make the session invalid
             session.invalidate();
+            //Redirect the user back to the homepage
             rd.forward(request, response);
         } catch (ServletException | IOException ex) {
             ex.printStackTrace();
