@@ -3,14 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.DatabaseUtils;
 
 /**
@@ -27,14 +32,32 @@ public class NewContact extends HttpServlet {
      * @param response servlet response
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
-	try {
-	    DatabaseUtils.addContact(request.getSession(),
-		    request.getParameter("addForename"),
-		    request.getParameter("addSurname"),
-		    request.getParameter("addEmail"));
-	} catch (SQLException ex) {
-	    ex.printStackTrace();
-	}
+
+        HttpSession session = request.getSession();
+
+        RequestDispatcher rd;
+        if (session.isNew()) {
+            rd = request.getRequestDispatcher("index.html");
+            try {
+                session.invalidate();
+                rd.forward(request, response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        try {
+            DatabaseUtils.addContact(request.getSession(),
+                    request.getParameter("addForename"),
+                    request.getParameter("addSurname"),
+                    request.getParameter("addEmail"));
+
+            PrintWriter out = response.getWriter();
+            out.write("Contact added");
+
+        } catch (SQLException | IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -48,8 +71,8 @@ public class NewContact extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	processRequest(request, response);
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -62,8 +85,8 @@ public class NewContact extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	processRequest(request, response);
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -73,7 +96,7 @@ public class NewContact extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-	return "Short description";
+        return "Short description";
     }// </editor-fold>
 
 }

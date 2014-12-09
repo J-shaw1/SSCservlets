@@ -1,7 +1,11 @@
-package servlets;
+package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.MessagingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,21 +27,40 @@ public class NewEmail extends HttpServlet {
      * @param response servlet response
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
-	HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
+        RequestDispatcher rd;
+        if (session.isNew()) {
+            rd = request.getRequestDispatcher("index.html");
+            try {
+                session.invalidate();
+                rd.forward(request, response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
+        }
 
-	EmailLogin login = (EmailLogin) session.getAttribute("login");
+        EmailLogin login = (EmailLogin) session.getAttribute("login");
 
-	String to = request.getParameter("to");
-	String cc = request.getParameter("cc");
-	String subject = request.getParameter("subject");
-	String body = request.getParameter("body");
+        String to = request.getParameter("to");
+        String cc = request.getParameter("cc");
+        String subject = request.getParameter("subject");
+        String body = request.getParameter("body");
 
-	try {
-	    login.sendEmail(to, cc, subject, body);
-	} catch (MessagingException ex) {
-	    ex.printStackTrace();
-	    throw new RuntimeException("Email failed");
-	}
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
+        try {
+            login.sendEmail(to, cc, subject, body);
+            out.write("Email sent");
+
+        } catch (MessagingException ex) {
+            out.write("Email failed to send");
+            ex.printStackTrace();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,8 +74,8 @@ public class NewEmail extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	processRequest(request, response);
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -65,8 +88,8 @@ public class NewEmail extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	processRequest(request, response);
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -76,7 +99,7 @@ public class NewEmail extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-	return "Short description";
+        return "Short description";
     }// </editor-fold>
 
 }

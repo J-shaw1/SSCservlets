@@ -11,6 +11,14 @@
 	<script type="text/javascript">
 	    function showHide(idName) {
 		e = document.getElementById(idName);
+                
+                inputs = e.getElementsByTagName("form")[0].elements;
+                
+               for(i = 0; i < inputs.length; i++){
+                   if(inputs[i].type !== "submit")
+                   inputs[i].value = "";
+               }
+                 
 		//Switch the display property
 		if (e.style.display === 'block') {
 		    e.style.display = 'none';
@@ -18,6 +26,7 @@
 		    e.style.display = 'block';
 		}
 	    }
+            
 	</script>
 
         <h1>Welcome 
@@ -100,6 +109,12 @@
 		</fieldset>
 	    </form>
 	</div>
+        
+        <br />
+        <form action="DestroySession" name="logout">
+            <input type="submit" value="Logout">
+        </form>
+        
 
     </body>
 </html>

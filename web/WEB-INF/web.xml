@@ -2,19 +2,23 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>TestLogin</servlet-name>
-        <servlet-class>servlets.TestLogin</servlet-class>
+        <servlet-class>controllers.TestLogin</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NewEmail</servlet-name>
-        <servlet-class>servlets.NewEmail</servlet-class>
+        <servlet-class>controllers.NewEmail</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NewContact</servlet-name>
-        <servlet-class>servlets.NewContact</servlet-class>
+        <servlet-class>controllers.NewContact</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SearchContact</servlet-name>
-        <servlet-class>servlets.SearchContact</servlet-class>
+        <servlet-class>controllers.SearchContact</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DestroySession</servlet-name>
+        <servlet-class>controllers.DestroySession</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TestLogin</servlet-name>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>SearchContact</servlet-name>
         <url-pattern>/SearchContact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DestroySession</servlet-name>
+        <url-pattern>/DestroySession</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

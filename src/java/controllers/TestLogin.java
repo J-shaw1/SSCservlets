@@ -1,4 +1,4 @@
-package servlets;
+package controllers;
 
 import model.EmailLogin;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author Joe
@@ -23,30 +24,30 @@ public class TestLogin extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Test if the deatils are correct
-            //IF they are then send to menu page
-            //else send to try again page
-        
+        //IF they are then send to menu page
+        //else send to try again page
+
         RequestDispatcher rd;
-        
-	//Create the session for storing data
-	HttpSession session = request.getSession(true);
-	
+
+        //Create the session for storing data
+        HttpSession session = request.getSession(true);
+
         //Get the usename and password from the request
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
+
         //Create the new login object
         EmailLogin login = new EmailLogin(username, password);
-        
+
         //Add the login to the request
         session.setAttribute("login", login);
-	session.setAttribute("username", username);
-	session.setAttribute("password", password);
-        
+        session.setAttribute("username", username);
+        session.setAttribute("password", password);
+
         //Test if the login details are correct
-        if(login.testLoginDetails()){
+        if (login.testLoginDetails()) {
             rd = request.getRequestDispatcher("correctLogin.jsp");
         } else {
             rd = request.getRequestDispatcher("incorrectLogin.html");

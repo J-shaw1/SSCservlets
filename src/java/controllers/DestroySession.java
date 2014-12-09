@@ -3,23 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.ContactDetail;
-import model.DatabaseUtils;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author joe
+ * @author Joe
  */
-public class SearchContact extends HttpServlet {
+public class DestroySession extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -27,40 +26,20 @@ public class SearchContact extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	response.setContentType("text/html;charset=UTF-8");
-	try (PrintWriter out = response.getWriter()) {
-	    /* TODO output your page here. You may use following sample code. */
-	    out.println("<h1>Search Results</h1>");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
 
-	    ArrayList<ContactDetail> results = DatabaseUtils.searchContact(request.getParameter("searchForename"),
-		    request.getParameter("searchSurname"),
-		    request.getSession());
-	    
-	    out.println("<table border=\"1px\">");
-	    out.println("<tr>");
-	    out.println("<td>Forename</td>");
-	    out.println("<td>Surname</td>");
-	    out.println("<td>Email address</td>");
-	    out.println("</tr>");
+        HttpSession session = request.getSession();
 
-            System.err.println(request.getParameter("searchForename") + " :: " + 
-		    request.getParameter("searchSurname"));
-            
-	    for (ContactDetail result : results) {
-		out.println("<tr>");
-		out.println("<td>" + result.getForename() + "</td>");
-		out.println("<td>" + result.getSurname() + "</td>");
-		out.println("<td>" + result.getEmail() + "</td>");
-		out.println("</tr>");
-	    }
-	    out.println("</table>");
+        RequestDispatcher rd;
+        rd = request.getRequestDispatcher("index.html");
+        try {
+            session.invalidate();
+            rd.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            ex.printStackTrace();
+        }
 
-	}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,8 +53,8 @@ public class SearchContact extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	processRequest(request, response);
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -88,8 +67,8 @@ public class SearchContact extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	processRequest(request, response);
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -99,7 +78,7 @@ public class SearchContact extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-	return "Short description";
+        return "Short description";
     }// </editor-fold>
 
 }
