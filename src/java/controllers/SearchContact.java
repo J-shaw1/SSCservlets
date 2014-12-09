@@ -13,7 +13,7 @@ import model.ContactDetail;
 import model.DatabaseUtils;
 
 /**
- *
+ * Searches for a contact in the address book
  * @author joe
  */
 public class SearchContact extends HttpServlet {

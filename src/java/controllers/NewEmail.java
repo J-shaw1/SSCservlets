@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import model.EmailLogin;
 
 /**
- *
+ * Sends a new email
  * @author joe
  */
 public class NewEmail extends HttpServlet {
