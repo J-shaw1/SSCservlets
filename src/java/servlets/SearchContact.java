@@ -38,7 +38,7 @@ public class SearchContact extends HttpServlet {
 	    out.println("<h1>Search Results</h1>");
 
 	    ArrayList<ContactDetail> results = DatabaseUtils.searchContact(request.getParameter("searchForename"),
-		    request.getParameter("searchForename"),
+		    request.getParameter("searchSurname"),
 		    request.getSession());
 	    
 	    out.println("<table border=\"1px\">");
@@ -48,6 +48,9 @@ public class SearchContact extends HttpServlet {
 	    out.println("<td>Email address</td>");
 	    out.println("</tr>");
 
+            System.err.println(request.getParameter("searchForename") + " :: " + 
+		    request.getParameter("searchSurname"));
+            
 	    for (ContactDetail result : results) {
 		out.println("<tr>");
 		out.println("<td>" + result.getForename() + "</td>");

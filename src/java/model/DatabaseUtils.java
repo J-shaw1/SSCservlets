@@ -51,9 +51,8 @@ public class DatabaseUtils {
     public static ArrayList<ContactDetail> searchContact(String forename, String surname, HttpSession session) {
 
 	String username = (String) session.getAttribute("username");
-
+        System.err.println(username);
 	try {
-
 	    if (forename == null || (forename.equals("")) && (surname == null || surname.equals(""))) {
 		throw new RuntimeException("The two search fields were empty");
 	    } else if (forename == null || forename.equals("")) {
@@ -72,9 +71,9 @@ public class DatabaseUtils {
     private static ResultSet searchSur(String username, String surname) throws SQLException {
 
 	PreparedStatement p = getConnection().prepareStatement(
-		"SELECT contactForename, contactSurname, contactEmail"
-		+ "FROM Contacts"
-		+ "WHERE email == ? && contactSurname == ?");
+		"SELECT c.contactForename, c.contactSurname, c.contactEmail "
+		+ "FROM Contacts c "
+		+ "WHERE c.email = ? AND c.contactSurname = ?;");
 	p.setString(1, username);
 	p.setString(2, surname);
 
@@ -83,9 +82,9 @@ public class DatabaseUtils {
 
     private static ResultSet searchFore(String username, String forename) throws SQLException {
 	PreparedStatement p = getConnection().prepareStatement(
-		"SELECT contactForename, contactSurname, contactEmail"
-		+ "FROM Contacts"
-		+ "WHERE email == ? && contactForename == ?");
+		"SELECT c.contactForename, c.contactSurname, c.contactEmail "
+		+ "FROM Contacts c "
+		+ "WHERE c.email = ? AND c.contactForename = ?;");
 	p.setString(1, username);
 	p.setString(2, forename);
 
@@ -94,9 +93,11 @@ public class DatabaseUtils {
 
     private static ResultSet searchBoth(String username, String forename, String surname) throws SQLException {
 	PreparedStatement p = getConnection().prepareStatement(
-		"SELECT contactForename, contactSurname, contactEmail"
-		+ "FROM Contacts"
-		+ "WHERE email == ? && contactForename == ? && contactSurname == ?");
+		"SELECT c.contactForename, c.contactSurname, c.contactEmail "
+		+ "FROM Contacts c "
+		+ "WHERE ((c.email = ?) AND (c.contactForename = ?) AND (c.contactSurname = ?));");
+        
+        System.out.println(username);
 	p.setString(1, username);
 	p.setString(2, forename);
 	p.setString(3, surname);
