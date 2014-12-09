@@ -9,36 +9,36 @@ import java.sql.SQLException;
  */
 public class CleanDatabase {
     
-    private static Connection conn;
-    
     /**
      * Creates deletes the old table and creates a new empty one
      * @param args 
      */
     public static void main(String[] args) {
 	Connection conn = DatabaseUtils.getConnection();
-	deleteOldTable();
-	createNewTable();
+	deleteOldTable(conn);
+	createNewTable(conn);
     }
 
-    private static void deleteOldTable() {
+    private static void deleteOldTable(Connection conn) {
 	try {
-	    conn.prepareStatement("DROP TABLE Contacts");
+	    conn.prepareStatement("DROP TABLE Contacts").execute();
 	} catch (SQLException ex) {
 	    System.err.println("Table could not be dropped");
+            ex.printStackTrace();
 	}
     }
 
-    private static void createNewTable() {
+    private static void createNewTable(Connection conn) {
 	try {
 	    conn.prepareStatement("CREATE TABLE Contacts ("
-		    + "email VARCHAR(100)"
-		    + "contactEmail VARCHAR(100)"
-		    + "contactForename VARCHAR(30)"
+		    + "email VARCHAR(100),"
+		    + "contactEmail VARCHAR(100),"
+		    + "contactForename VARCHAR(30),"
 		    + "contactSurname VARCHAR(30)"
-		    + ");");
+		    + ");").execute();
 	} catch (SQLException ex) {
 	    System.err.println("Could not create the table");
+            ex.printStackTrace();
 	}
     }
 }

@@ -27,9 +27,9 @@ public class DatabaseUtils {
     public static Connection getConnection() {
 	Connection conn = null;
 
-	final String SERVER_ADDRESS = "jdbc:postgresql://localhost:1527";
-	final String SERVER_USERNAME = "jgs328";
-	final String SERVER_PASSWORD = "qwerty1234";
+	final String SERVER_ADDRESS = "jdbc:postgresql://localhost/Con";
+	final String SERVER_USERNAME = "postgres";
+	final String SERVER_PASSWORD = "password";
 	
 	try {
 	    Class.forName("org.postgresql.Driver");
@@ -39,11 +39,12 @@ public class DatabaseUtils {
 
 	try {
 	    conn = DriverManager.getConnection(SERVER_ADDRESS, SERVER_USERNAME, SERVER_PASSWORD);
+            System.err.println("Connection made");
 	} catch (SQLException ex) {
+            System.err.println("Connection failed");
 	    ex.printStackTrace();
 	    throw new RuntimeException("Failed to connect to the database");
 	}
-
 	return conn;
     }
 
@@ -63,6 +64,7 @@ public class DatabaseUtils {
 		return processResults(searchBoth(username, forename, surname));
 	    }
 	} catch (SQLException ex) {
+            ex.printStackTrace();
 	    throw new RuntimeException("Database query failed");
 	}
     }
@@ -126,6 +128,7 @@ public class DatabaseUtils {
 	p.setString(2, email);
 	p.setString(3, forename);
 	p.setString(4, surname);
+        p.execute();
     }
     
 }
