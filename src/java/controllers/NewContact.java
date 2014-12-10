@@ -29,7 +29,6 @@ public class NewContact extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession();
-
         //If the session is new then send them back to the homepage
         RequestDispatcher rd;
         if (session.isNew()) {
